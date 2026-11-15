@@ -2,6 +2,11 @@
 
 Recibe los eventos del tracker y entrega las estadísticas. PHP 8.1+ y MySQL 5.7+ / MariaDB 10.3+, **sin dependencias**: funciona en hosting compartido (Hostinger, cPanel).
 
+> [!NOTE]
+> Esta es la guía con la que **Logiciel MS** corre su propio servidor en `analytics.logicielms.com`. Si eres cliente nuestro no tienes que instalar nada de esto: solo pones en tu sitio el `siteId` que te generamos desde el panel de [logicielms.com](https://logicielms.com).
+>
+> ¿Quieres analítica así para tu negocio o una funcionalidad parecida? Escríbenos en **[logicielms.com](https://logicielms.com)**. El código es AGPL-3.0 y puedes estudiarlo o montarlo por tu cuenta bajo esa licencia, pero no damos soporte a instalaciones propias.
+
 ## Instalación en Hostinger (hosting compartido)
 
 1. **Base de datos.** hPanel → _Bases de datos → MySQL_: crea una base y un usuario. Anota el nombre, el usuario y la contraseña.

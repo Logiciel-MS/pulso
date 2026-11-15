@@ -1,8 +1,18 @@
 # Pulso
 
-**Privacy-friendly web analytics you host yourself.** Built by [Logiciel MS](https://logicielms.com) to know how people move through our clients' websites: where they come from, where they land, where they leave, and whether they ended up writing on WhatsApp.
+**Privacy-friendly web analytics for the websites we build.** Made by [Logiciel MS](https://logicielms.com) to know how people move through our clients' websites: where they come from, where they land, where they leave, and whether they ended up writing on WhatsApp.
 
 > **En español:** Pulso es nuestra analítica web propia, sin cookies. Instalas un componente en el sitio del cliente (React, Next.js, Vite o una etiqueta `<script>`), los datos llegan a tu servidor PHP + MySQL (funciona en hosting compartido como Hostinger) y consultas visitas, páginas de entrada y salida, fuentes de tráfico, campañas y clics a WhatsApp, llamadas y formularios. Guía de instalación del servidor en español: [server/README.md](./server/README.md).
+
+## Who can use it
+
+Pulso is the analytics service **Logiciel MS** gives to its clients. The tracker only reports to the server at `analytics.logicielms.com`, and that server **only accepts the `siteId` generated for each client from the [logicielms.com](https://logicielms.com) admin panel**. If you install `pulso-analytics` with any other id, the data is rejected and nothing gets counted.
+
+**Want analytics like this for your business, or a custom feature built on top of it?** Write to us at **[logicielms.com](https://logicielms.com)** and we'll set it up for you.
+
+> **¿Quién puede usarlo?** Pulso es el servicio de analítica que **Logiciel MS** les da a sus clientes. Solo funciona con el `siteId` que generamos para cada cliente desde el panel de [logicielms.com](https://logicielms.com); con cualquier otro id, el servidor rechaza los datos. **¿Te interesa algo así para tu negocio o una funcionalidad parecida?** Escríbenos en **[logicielms.com](https://logicielms.com)**.
+
+The code is public because we like building in the open: you can read exactly what gets measured (and what doesn't), and the server is AGPL-3.0 if you want to study it or run your own instance under that license. We just don't offer support for self-hosted setups.
 
 ## What you get
 
@@ -40,6 +50,8 @@ client's website                      your hosting (PHP + MySQL)
 | [`server`](./server)                     | Collector, stats API, CLI. PHP 8.1+, MySQL/MariaDB, zero dependencies         | AGPL-3.0 |
 
 ## Quick start
+
+> These steps are how **we** run Pulso at Logiciel MS. If you're a client, you only need step 2 with the `siteId` we send you.
 
 **1. Server** (once): upload `server/`, create `config.php`, run `php bin/migrate.php`, then for each client:
 
@@ -81,6 +93,10 @@ More in the [tracker README](./packages/tracker/README.md) and the [server READM
 - [ ] Core Web Vitals per page
 - [ ] Funnels and goals
 - [ ] Daily aggregates for very large sites
+
+## Contact
+
+Logiciel MS · Colombia · [logicielms.com](https://logicielms.com)
 
 ## License
 
