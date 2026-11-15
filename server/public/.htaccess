@@ -1,0 +1,21 @@
+# Pulso front controller: Apache / LiteSpeed (Hostinger, cPanel...)
+Options -Indexes -MultiViews
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Shared hosting often drops the Authorization header before PHP sees it
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Real files (pulso.js) are served as-is, everything else goes to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "pulso\.js$">
+        Header set Cache-Control "public, max-age=3600"
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>

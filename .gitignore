@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+vendor
+.DS_Store
+.phpunit.result.cache
+server/config.php
+server/public/pulso.js

@@ -1,0 +1,51 @@
+name: Release
+
+# Push a tag like v0.2.0:
+#  1. the tracker is staged on npm (trusted publishing, no tokens); approve it with `npm stage approve`
+#  2. a GitHub release is created with pulso-server-vX.Y.Z.zip, ready to upload to the hosting
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Check if this version is already on npm
+        id: check
+        working-directory: packages/tracker
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "pulso-analytics@$VERSION" version >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          fi
+      - run: npm install -g npm@11
+      - name: Stage tracker on npm
+        if: steps.check.outputs.published != 'true'
+        working-directory: packages/tracker
+        run: npm stage publish --access public
+
+      - name: Server zip
+        run: |
+          mkdir -p dist
+          cd server
+          zip -r "../dist/pulso-server-$GITHUB_REF_NAME.zip" . -x 'tests/*' 'config.php'
+      - name: GitHub release
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            || gh release create "$GITHUB_REF_NAME" --generate-notes "dist/pulso-server-$GITHUB_REF_NAME.zip"
+        env:
+          GH_TOKEN: ${{ github.token }}

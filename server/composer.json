@@ -1,0 +1,34 @@
+{
+  "name": "logiciel-ms/pulso-server",
+  "description": "Pulso server: collects and reports privacy-friendly web analytics. PHP + MySQL, runs on shared hosting.",
+  "type": "project",
+  "license": "AGPL-3.0-only",
+  "authors": [
+    {
+      "name": "Logiciel MS",
+      "homepage": "https://logicielms.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "ext-json": "*",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pulso\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pulso\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "php tests/run.php",
+    "lint": "find src public bin tests -name '*.php' -print0 | xargs -0 -n1 php -l"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

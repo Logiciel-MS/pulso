@@ -1,0 +1,19 @@
+{
+  "name": "pulso",
+  "private": true,
+  "description": "Pulso: privacy-friendly web analytics by Logiciel MS. Monorepo.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w pulso-analytics && cp packages/tracker/dist/pulso.js server/public/pulso.js",
+    "test": "npm test -w pulso-analytics",
+    "typecheck": "npm run typecheck -w pulso-analytics",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:server": "php server/tests/run.php"
+  },
+  "devDependencies": {
+    "prettier": "^3.10.1"
+  }
+}

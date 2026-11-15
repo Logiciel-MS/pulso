@@ -1,0 +1,6 @@
+# Safety net in case the whole server/ folder ends up inside public_html.
+# The right setup is pointing the (sub)domain's document root to server/public.
+<FilesMatch "^config(\.example)?\.php$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 /(src|bin|database|tests|vendor)/

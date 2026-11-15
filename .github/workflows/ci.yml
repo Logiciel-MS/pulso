@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tracker:
+    name: tracker (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  server:
+    name: server (php ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1', '8.2', '8.3', '8.4']
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: pulso_test
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo, pdo_mysql, pdo_sqlite, mbstring
+          coverage: none
+      - name: Lint
+        run: find server/src server/public server/bin server/tests -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Tests (SQLite)
+        run: php server/tests/run.php
+      - name: Tests (MySQL 8, strict mode)
+        run: php server/tests/run.php
+        env:
+          PULSO_TEST_DSN: mysql:host=127.0.0.1;port=3306;dbname=pulso_test;charset=utf8mb4
+          PULSO_TEST_USER: root
+          PULSO_TEST_PASSWORD: root

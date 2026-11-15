@@ -1,0 +1,14 @@
+Pulso is open core, with two licenses:
+
+  packages/tracker/  (the "pulso-analytics" npm package that runs on your
+                      clients' websites)  ->  MIT License, see packages/tracker/LICENSE
+
+  server/            (collector, stats API and everything that stores data)
+                      ->  GNU Affero General Public License v3.0 only,
+                          see server/LICENSE
+
+In plain words: use the tracker however you want. You can also run, modify and
+self-host the server for free, but if you offer a modified server to others as a
+network service, you must publish your changes under the same license.
+
+Copyright (c) 2026 Logiciel MS

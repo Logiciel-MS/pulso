@@ -1,0 +1,88 @@
+{
+  "name": "pulso-analytics",
+  "version": "0.1.0",
+  "description": "Analítica web sin cookies para React, Next.js y Vite: visitas, entradas, salidas, clics a WhatsApp y formularios. Privacy-friendly analytics tracker for Pulso by Logiciel MS.",
+  "keywords": [
+    "analytics",
+    "analitica",
+    "privacy",
+    "cookieless",
+    "react",
+    "nextjs",
+    "vite",
+    "whatsapp",
+    "google-analytics-alternative",
+    "colombia",
+    "typescript"
+  ],
+  "author": "Logiciel MS (https://logicielms.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Logiciel-MS/pulso.git",
+    "directory": "packages/tracker"
+  },
+  "homepage": "https://github.com/Logiciel-MS/pulso#readme",
+  "bugs": {
+    "url": "https://github.com/Logiciel-MS/pulso/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./script": "./dist/pulso.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.3.0",
+    "happy-dom": "^20.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^9.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0"
+  }
+}
