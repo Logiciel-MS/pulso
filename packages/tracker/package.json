@@ -78,7 +78,7 @@
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.3.0",
-    "happy-dom": "^20.0.0",
+    "happy-dom": "^21.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^9.0.0",
